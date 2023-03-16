@@ -14,7 +14,8 @@ interface GeneralLayoutProps {
 
 const GeneralLayout: React.FC<GeneralLayoutProps> = ({children, isAdminPage}) => {
   {/* TODO 4-2: Recoil atom `UserAtom`을 이용해 userProfile props 대체 및 삭제 */}
-  const [ userProfile, setUserProfile ] = useState<User | null>(null)
+  // const [ userProfile, setUserProfile ] = useState<User | null>(null)
+  const [userProfile ,setUserProfile] =useRecoilState(UserAtom)
   const {routeTo} = useRouter()
 
   const fetchUserProfile = useCallback(async () => {
@@ -51,7 +52,7 @@ const GeneralLayout: React.FC<GeneralLayoutProps> = ({children, isAdminPage}) =>
 
   return (<div className="general-layout">
     {/* TODO 4-2: Recoil atom `UserAtom`을 이용해 userProfile props 대체 및 삭제 */}
-    <Sidebar sidebarContent={SidebarContent} userProfile={userProfile} />
+    <Sidebar sidebarContent={SidebarContent} />
     <div className="general-layout__body">
       { children }
     </div>

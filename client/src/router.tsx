@@ -63,8 +63,18 @@ const routerData: RouterElement[] = [
     element: <PageC/>,
     withAuth: true
   },
+  {
+    id: 5,
+    path: '/admin',
+    label: '어드민 페이지',
+    element: <AdminPage/>,
+    withAuth: true ,
+    isAdminPage : true
+  },
   // TODO 4-1: Admin페이지를 router에 추가
 ]
+
+//red / 1234!@#$, white / 1234!
 
 export const routers: RemixRouter = createBrowserRouter(
   // TODO 4-1: 어드민 전용 페이지이거나 auth가 필요한 페이지는 GeneralLayout으로 감싸기
@@ -73,7 +83,9 @@ export const routers: RemixRouter = createBrowserRouter(
     if (router.withAuth) {
       return {
         path: router.path,
-        element: <GeneralLayout>{ router.element }</GeneralLayout>
+        element: <GeneralLayout
+        isAdminPage={'isAdminPage' in router && router.isAdminPage}
+        >{ router.element }</GeneralLayout>
       }
     } else {
       return {
@@ -94,6 +106,7 @@ export const SidebarContent: SidebarElement[] = routerData.reduce((prev, router)
       id: router.id,
       path: router.path,
       label: router.label,
+      isAdminOnly:'isAdminPage' in router && router.isAdminPage
     }
   ]
 }, [] as SidebarElement[])
